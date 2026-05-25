@@ -1,0 +1,399 @@
+/* ============================================================
+   LoginPage.css — Login Page Styles
+   Self-contained: all shared form styles live here too.
+   ============================================================ */
+
+/* ══════════════════════════════════════════════════════════════
+   PAGE WRAPPER
+   ══════════════════════════════════════════════════════════════ */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+
+  /* Layered gradient mesh background */
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 198, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(123, 94, 167, 0.15) 0%, transparent 60%),
+    linear-gradient(135deg, var(--clr-bg-start) 0%, var(--clr-bg-mid) 50%, var(--clr-bg-end) 100%);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative animated orbs */
+.login-page::before,
+.login-page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.login-page::before {
+  width: 400px;
+  height: 400px;
+  background: rgba(0, 198, 255, 0.07);
+  top: -100px;
+  left: -100px;
+}
+
+.login-page::after {
+  width: 350px;
+  height: 350px;
+  background: rgba(123, 94, 167, 0.1);
+  bottom: -80px;
+  right: -80px;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CARD
+   ══════════════════════════════════════════════════════════════ */
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+
+  background: var(--clr-glass-bg);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+
+  /* Glassmorphism */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 1px 0 rgba(255, 255, 255, 0.10) inset;
+
+  animation: cardEnter 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BRAND / LOGO AREA
+   ══════════════════════════════════════════════════════════════ */
+.login-brand {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.login-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-2));
+  margin-bottom: var(--space-md);
+  box-shadow: 0 8px 32px var(--clr-accent-glow);
+  font-size: 28px;
+}
+
+.login-brand h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--clr-text-primary);
+  margin-bottom: 6px;
+}
+
+.login-brand p {
+  font-size: 0.875rem;
+  color: var(--clr-text-secondary);
+  font-weight: 400;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FORM HEADING
+   ══════════════════════════════════════════════════════════════ */
+.login-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--clr-text-primary);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED FORM STYLES
+   Used by: LoginPage — and copied into SignupPage.css too,
+   because each page imports only its own CSS file.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ---- Form group: wraps one label + input pair ---- */
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--clr-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-xs);
+}
+
+/* ---- Input wrapper: positions icon & toggle inside the field ---- */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/*
+ * Icon sits inside the input on the left.
+ * pointer-events: none so clicking the icon focuses the input.
+ */
+.input-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 16px;
+  color: var(--clr-text-muted);
+  pointer-events: none;
+  z-index: 1;
+  transition: color var(--transition-fast);
+}
+
+/* When the wrapper has focus anywhere inside, highlight the icon */
+.input-wrapper:focus-within .input-icon {
+  color: var(--clr-accent);
+}
+
+/* ---- Base input style ---- */
+.form-input {
+  width: 100%;
+  /*
+   * Padding breakdown:
+   *   top/bottom : 13px
+   *   left       : 42px  — room for the left icon
+   *   right      : 44px  — room for the show/hide toggle button
+   */
+  padding: 13px 44px 13px 42px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-sm);
+  color: var(--clr-text-primary);
+  font-size: 0.925rem;
+  transition:
+    border-color var(--transition-fast),
+    background  var(--transition-fast),
+    box-shadow  var(--transition-fast);
+}
+
+/*
+ * FIX: -webkit-text-fill-color must only override the browser's
+ * autofill yellow background, NOT every normal input state.
+ * Placing it on :-webkit-autofill targets only that case.
+ */
+.form-input:-webkit-autofill,
+.form-input:-webkit-autofill:hover,
+.form-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--clr-text-primary);
+  -webkit-box-shadow: 0 0 0px 1000px rgba(13, 27, 62, 0.95) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form-input::placeholder {
+  color: var(--clr-text-muted);
+}
+
+/* Inputs that have no toggle button on the right */
+.form-input.no-toggle {
+  padding-right: 14px;
+}
+
+/* Focus state */
+.form-input:focus {
+  outline: none;
+  border-color: var(--clr-accent);
+  background: rgba(0, 198, 255, 0.05);
+  box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.12);
+}
+
+/* ---- Error state ---- */
+.form-input.input-error {
+  border-color: var(--clr-error);
+  background: rgba(255, 91, 127, 0.05);
+}
+
+.form-input.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(255, 91, 127, 0.15);
+}
+
+/* ---- Inline error message below an input ---- */
+.error-msg {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--clr-error);
+  margin-top: 6px;
+  padding-left: 2px;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0);   }
+  25%       { transform: translateX(-4px); }
+  75%       { transform: translateX(4px);  }
+}
+
+/* ---- Show / Hide password toggle ---- */
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+  /* Ensure toggle sits above the input */
+  z-index: 2;
+}
+
+.toggle-password:hover {
+  color: var(--clr-accent);
+}
+
+/* ── Primary button ── */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--clr-accent), #0099cc);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #030d1a;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  margin-top: var(--space-sm);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform    var(--transition-fast),
+    box-shadow   var(--transition-fast),
+    filter       var(--transition-fast);
+  box-shadow: 0 4px 24px rgba(0, 198, 255, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 198, 255, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(0, 198, 255, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Secondary / outline button ── */
+.btn-secondary {
+  width: 100%;
+  padding: 13px;
+  background: transparent;
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--clr-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: var(--space-sm);
+  transition:
+    border-color var(--transition-fast),
+    color        var(--transition-fast),
+    background   var(--transition-fast),
+    transform    var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+  background: rgba(0, 198, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+/* ── "or" divider between buttons ── */
+.btn-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-md) 0;
+  color: var(--clr-text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.btn-divider::before,
+.btn-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--clr-glass-border);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FOOTER NOTE
+   ══════════════════════════════════════════════════════════════ */
+.login-footer {
+  text-align: center;
+  margin-top: var(--space-lg);
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .login-card {
+    padding: var(--space-lg) var(--space-md);
+    border-radius: var(--radius-lg);
+  }
+
+  .login-brand h1 {
+    font-size: 1.5rem;
+  }
+}
