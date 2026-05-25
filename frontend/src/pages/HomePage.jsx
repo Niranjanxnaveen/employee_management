@@ -1,19 +1,5 @@
 /**
  * HomePage.jsx
- * ------------
- * Red Turtle Coffee — Staff Portal Home / Company Overview
- *
- * Reads the logged-in user's name from React Router location state:
- *   location.state.userName  →  set by LoginPage on navigate('/home', { state: { userName } })
- *
- * If state is missing (e.g. user refreshed the page), falls back to "Staff Member".
- *
- * Logout button navigates back to the Login page.
- *
- * TODO: Replace static data with Spring Boot API calls:
- *   GET /api/company/overview  → stats, announcements
- *   GET /api/menu/featured     → featured menu items
- *   GET /api/employees/me      → logged-in user profile
  */
 
 import React, { useState, useEffect } from 'react';
@@ -111,16 +97,6 @@ function HomePage() {
   const location  = useLocation();
   const clockTime = useClock();
 
-  /*
-   * Read the userName passed from LoginPage via router state.
-   * Falls back to 'Staff Member' if the page was refreshed
-   * (router state is lost on refresh — handle with backend session later).
-   *
-   * TODO: When backend is connected, fetch user info from the token/session
-   *   instead of relying on router state:
-   *   const { data } = await fetch('/api/employees/me', { headers: { Authorization: `Bearer ${token}` } });
-   *   setUserName(data.fullName);
-   */
   const userName = location.state?.userName || 'Staff Member';
 
   // Show only first name in the greeting
@@ -128,8 +104,6 @@ function HomePage() {
 
   // ── Logout ──
   const handleLogout = () => {
-    // TODO: invalidate session/token on backend:
-    //await fetch('http://localhost:8080/api/auth/logout', { method: 'POST' });
     navigate('/');
   };
 
@@ -153,10 +127,7 @@ function HomePage() {
         <div className="navbar-right">
           <span className="navbar-clock">☕ {clockTime}</span>
 
-          {/*
-           * User name chip — displays the name received from LoginPage state.
-           * When backend is connected, replace with the name from the API/token.
-           */}
+          {}
           <div className="user-chip">
             <div className="user-chip-avatar">
               {/* First letter of the user's name as avatar */}

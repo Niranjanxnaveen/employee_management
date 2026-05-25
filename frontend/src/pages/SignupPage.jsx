@@ -1,15 +1,6 @@
 /**
- * SignupPage.jsx
- * -------------
- * Registration page with full name, email, password,
- * confirm password fields, validation, and password strength meter.
- *
- * After successful registration, navigates back to Login and passes
- * the user's full name via React Router state so Login can display it
- * and forward it to the Home page.
- *
- * TODO: Connect Spring Boot Register API here (see handleSignup).
- */
+ * SignupPage.jsx */
+
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -94,38 +85,6 @@ function SignupPage() {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
-
-    // ──────────────────────────────────────────────────────────────────────────
-    // TODO: Connect Spring Boot Register API here
-    //
-    // try {
-    //   const response = await fetch('http://localhost:8080/api/auth/register', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       fullName: formData.fullName,
-    //       email:    formData.email,
-    //       password: formData.password,
-    //     }),
-    //   });
-    //   const data = await response.json();
-    //   if (response.ok) {
-    //     setSuccess(true);
-    //     setTimeout(() => {
-    //       navigate('/', { state: { registeredName: formData.fullName, registeredEmail: formData.email } });
-    //     }, 1800);
-    //   } else {
-    //     setErrors({ email: data.message || 'Registration failed.' });
-    //   }
-    // } catch (err) {
-    //   setErrors({ email: 'Server error. Please try again.' });
-    // } finally {
-    //   setLoading(false);
-    // }
-    // ──────────────────────────────────────────────────────────────────────────
-
-    // TEMPORARY simulation — redirect to Login and pass the registered name
-    // so Login can pick it up and forward it to the Home page.
     try {
   const response = await fetch('http://localhost:8080/api/auth/register', {
     method: 'POST',

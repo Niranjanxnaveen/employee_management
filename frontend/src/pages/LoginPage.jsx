@@ -1,17 +1,5 @@
 /**
  * LoginPage.jsx
- * -------------
- * Login page for Red Turtle Coffee staff portal.
- *
- * Name flow (no backend / no localStorage):
- *  1. If the user just registered, SignupPage passes { registeredName, registeredEmail }
- *     via React Router state → we read it with useLocation().
- *  2. On successful login we forward that name to HomePage via navigate state:
- *       navigate('/home', { state: { userName } })
- *  3. If no name is available (user came straight to login), we fall back to
- *     the part of the email before the @ symbol.
- *
- * TODO: Connect Spring Boot Login API here (see handleLogin).
  */
 
 import React, { useState } from 'react';
@@ -27,12 +15,6 @@ function isValidEmail(email) {
 function LoginPage() {
   const navigate  = useNavigate();
 
-  /*
-   * useLocation() gives us the current route object.
-   * If SignupPage redirected here it attaches:
-   *   location.state.registeredName  → e.g. "Alex Johnson"
-   *   location.state.registeredEmail → pre-fill the email field
-   */
   const location = useLocation();
   const registeredName  = location.state?.registeredName  || '';
   const registeredEmail = location.state?.registeredEmail || '';
@@ -78,35 +60,7 @@ function LoginPage() {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
-
-    // ──────────────────────────────────────────────────────────────────────────
-    // TODO: Connect Spring Boot Login API here
-    //
-    // try {
-    //   const response = await fetch('http://localhost:8080/api/auth/login', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ email, password }),
-    //   });
-    //   const data = await response.json();
-    //   if (response.ok) {
-    //     // data.fullName comes from the DB via the API response
-    //     navigate('/home', { state: { userName: data.fullName } });
-    //   } else {
-    //     setErrors({ ...errors, password: data.message || 'Invalid credentials.' });
-    //   }
-    // } catch (err) {
-    //   setErrors({ ...errors, password: 'Server error. Please try again.' });
-    // } finally {
-    //   setLoading(false);
-    // }
-    // ──────────────────────────────────────────────────────────────────────────
-
-    // TEMPORARY simulation:
-    // Resolve the display name in this priority order:
-    //   1. registeredName passed from SignupPage  (e.g. "Alex Johnson")
-    //   2. Part of the email before @             (e.g. "john.doe")
-   try {
+    try {
 
   const response = await fetch('http://localhost:8080/api/auth/login', {
     method: 'POST',
