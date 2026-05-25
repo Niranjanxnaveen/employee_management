@@ -4,6 +4,10 @@
  * Registration page with full name, email, password,
  * confirm password fields, validation, and password strength meter.
  *
+ * After successful registration, navigates back to Login and passes
+ * the user's full name via React Router state so Login can display it
+ * and forward it to the Home page.
+ *
  * TODO: Connect Spring Boot Register API here (see handleSignup).
  */
 
@@ -16,15 +20,13 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// ─── Helper: password strength (returns 'weak' | 'fair' | 'strong') ──────────
+// ─── Helper: password strength → 'weak' | 'fair' | 'strong' ─────────────────
 function getPasswordStrength(password) {
   if (password.length < 6)  return 'weak';
   if (password.length < 10) return 'fair';
-
   const hasUpper   = /[A-Z]/.test(password);
   const hasNumber  = /[0-9]/.test(password);
   const hasSpecial = /[^A-Za-z0-9]/.test(password);
-
   if (hasUpper && hasNumber && hasSpecial) return 'strong';
   if (hasNumber || hasUpper)               return 'fair';
   return 'weak';
@@ -34,7 +36,7 @@ function getPasswordStrength(password) {
 function SignupPage() {
   const navigate = useNavigate();
 
-  // ── State: form fields ──
+  // ── Form field state ──
   const [formData, setFormData] = useState({
     fullName:        '',
     email:           '',
@@ -42,74 +44,59 @@ function SignupPage() {
     confirmPassword: '',
   });
 
-  // ── State: show/hide toggles ──
+  // ── Show/hide password toggles ──
   const [showPassword,        setShowPassword]        = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // ── State: errors ──
-  const [errors, setErrors] = useState({});
+  // ── Validation error messages ──
+  const [errors,  setErrors]  = useState({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  // ── State: loading & success ──
-  const [loading, setLoading]       = useState(false);
-  const [success, setSuccess]       = useState(false);
-
-  // ── Derived: password strength ──
+  // Derived password strength
   const strength = formData.password ? getPasswordStrength(formData.password) : null;
 
-  // ── Generic change handler for all inputs ──
+  // Generic field change handler
   const handleChange = (field) => (e) => {
     setFormData({ ...formData, [field]: e.target.value });
-    // Clear that specific field's error when user starts typing
     if (errors[field]) setErrors({ ...errors, [field]: '' });
   };
 
   // ── Validate all fields ──
   const validate = () => {
     const newErrors = {};
-
-    // Full Name
-    if (!formData.fullName.trim()) {
+    if (!formData.fullName.trim())
       newErrors.fullName = 'Full name is required.';
-    } else if (formData.fullName.trim().length < 3) {
+    else if (formData.fullName.trim().length < 3)
       newErrors.fullName = 'Name must be at least 3 characters.';
-    }
 
-    // Email
-    if (!formData.email.trim()) {
+    if (!formData.email.trim())
       newErrors.email = 'Email is required.';
-    } else if (!isValidEmail(formData.email)) {
+    else if (!isValidEmail(formData.email))
       newErrors.email = 'Please enter a valid email address.';
-    }
 
-    // Password
-    if (!formData.password) {
+    if (!formData.password)
       newErrors.password = 'Password is required.';
-    } else if (formData.password.length < 6) {
+    else if (formData.password.length < 6)
       newErrors.password = 'Password must be at least 6 characters.';
-    }
 
-    // Confirm Password
-    if (!formData.confirmPassword) {
+    if (!formData.confirmPassword)
       newErrors.confirmPassword = 'Please confirm your password.';
-    } else if (formData.password !== formData.confirmPassword) {
+    else if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = 'Passwords do not match.';
-    }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // true = no errors
+    return Object.keys(newErrors).length === 0;
   };
 
-  // ── Handle form submission ──
+  // ── Handle form submit ──
   const handleSignup = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-
     setLoading(true);
 
     // ──────────────────────────────────────────────────────────────────────────
     // TODO: Connect Spring Boot Register API here
-    //
-    // Example (replace with your actual Spring Boot endpoint):
     //
     // try {
     //   const response = await fetch('http://localhost:8080/api/auth/register', {
@@ -121,24 +108,24 @@ function SignupPage() {
     //       password: formData.password,
     //     }),
     //   });
-    //
     //   const data = await response.json();
-    //
     //   if (response.ok) {
     //     setSuccess(true);
-    //     setTimeout(() => navigate('/'), 2000); // Redirect to login after 2s
+    //     setTimeout(() => {
+    //       navigate('/', { state: { registeredName: formData.fullName, registeredEmail: formData.email } });
+    //     }, 1800);
     //   } else {
     //     setErrors({ email: data.message || 'Registration failed.' });
     //   }
     // } catch (err) {
-    //   console.error('Register API error:', err);
     //   setErrors({ email: 'Server error. Please try again.' });
     // } finally {
     //   setLoading(false);
     // }
     // ──────────────────────────────────────────────────────────────────────────
 
-    // ── TEMPORARY: Simulate success and redirect to login ──
+    // TEMPORARY simulation — redirect to Login and pass the registered name
+    // so Login can pick it up and forward it to the Home page.
     try {
   const response = await fetch('http://localhost:8080/api/auth/register', {
     method: 'POST',
@@ -185,9 +172,8 @@ function SignupPage() {
 }
   };
 
-  // ─── Strength bar helper ───────────────────────────────────────────────────
+  // ── Strength bar helper ──
   const getBarClass = (barIndex) => {
-    // bar 1 lights up for any strength; bar 2 for fair/strong; bar 3 for strong
     if (!strength) return '';
     if (strength === 'weak'   && barIndex <= 1) return 'weak';
     if (strength === 'fair'   && barIndex <= 2) return 'fair';
@@ -195,29 +181,29 @@ function SignupPage() {
     return '';
   };
 
-  // ──────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
   return (
     <div className="signup-page">
       <div className="signup-card">
 
         {/* ── Brand ── */}
         <div className="signup-brand">
-          <div className="signup-logo">👤</div>
-          <h1>Create Account</h1>
-          <p>Join the EmpTrack employee portal</p>
+          <div className="signup-logo">🐢</div>
+          <h1>Red Turtle</h1>
+          <p>Create your staff account</p>
         </div>
 
-        {/* ── Success banner (shown after registration) ── */}
+        {/* ── Success banner ── */}
         {success && (
           <div className="success-banner">
             ✅ Account created! Redirecting to login...
           </div>
         )}
 
-        {/* ── Signup Form ── */}
+        {/* ── Form ── */}
         <form className="signup-form" onSubmit={handleSignup} noValidate>
 
-          {/* ── Full Name ── */}
+          {/* Full Name */}
           <div className="form-group">
             <label htmlFor="fullName">Full Name</label>
             <div className="input-wrapper">
@@ -226,7 +212,7 @@ function SignupPage() {
                 id="fullName"
                 type="text"
                 className={`form-input no-toggle ${errors.fullName ? 'input-error' : ''}`}
-                placeholder="John Doe"
+                placeholder="e.g. Alex Johnson"
                 value={formData.fullName}
                 onChange={handleChange('fullName')}
                 autoComplete="name"
@@ -235,7 +221,7 @@ function SignupPage() {
             {errors.fullName && <span className="error-msg">⚠ {errors.fullName}</span>}
           </div>
 
-          {/* ── Email ── */}
+          {/* Email */}
           <div className="form-group">
             <label htmlFor="regEmail">Email Address</label>
             <div className="input-wrapper">
@@ -244,7 +230,7 @@ function SignupPage() {
                 id="regEmail"
                 type="email"
                 className={`form-input no-toggle ${errors.email ? 'input-error' : ''}`}
-                placeholder="john@company.com"
+                placeholder="you@redturtle.com"
                 value={formData.email}
                 onChange={handleChange('email')}
                 autoComplete="email"
@@ -253,7 +239,7 @@ function SignupPage() {
             {errors.email && <span className="error-msg">⚠ {errors.email}</span>}
           </div>
 
-          {/* ── Password ── */}
+          {/* Password */}
           <div className="form-group">
             <label htmlFor="regPassword">Password</label>
             <div className="input-wrapper">
@@ -277,8 +263,6 @@ function SignupPage() {
               </button>
             </div>
             {errors.password && <span className="error-msg">⚠ {errors.password}</span>}
-
-            {/* Password strength indicator */}
             {formData.password && (
               <div className="password-strength">
                 <div className="strength-bars">
@@ -287,15 +271,15 @@ function SignupPage() {
                   <div className={`strength-bar ${getBarClass(3)}`} />
                 </div>
                 <span className={`strength-label ${strength}`}>
-                  {strength === 'weak'   && 'Weak'}
-                  {strength === 'fair'   && 'Fair'}
+                  {strength === 'weak' && 'Weak'}
+                  {strength === 'fair' && 'Fair'}
                   {strength === 'strong' && 'Strong'}
                 </span>
               </div>
             )}
           </div>
 
-          {/* ── Confirm Password ── */}
+          {/* Confirm Password */}
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <div className="input-wrapper">
@@ -323,26 +307,20 @@ function SignupPage() {
             )}
           </div>
 
-          {/* ── Register Button ── */}
+          {/* Register Button */}
           <button type="submit" className="btn-primary" disabled={loading || success}>
             {loading ? '⏳ Creating account...' : '✨ Create Account'}
           </button>
 
           <div className="btn-divider">already a member?</div>
 
-          {/* ── Back to Login ── */}
-          <button
-            type="button"
-            className="btn-secondary"
-            onClick={() => navigate('/')}
-          >
+          {/* Back to Login */}
+          <button type="button" className="btn-secondary" onClick={() => navigate('/')}>
             ← Back to Login
           </button>
         </form>
 
-        <p className="signup-footer">
-          🔐 Secure employee portal · v1.0.0
-        </p>
+        <p className="signup-footer">🐢 Red Turtle Coffee · Staff Portal</p>
       </div>
     </div>
   );

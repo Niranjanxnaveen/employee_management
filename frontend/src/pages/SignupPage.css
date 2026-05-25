@@ -1,104 +1,90 @@
 /* ============================================================
-   SignupPage.css — Signup Page Styles
-   Self-contained: all shared form styles are included here
-   because SignupPage.jsx imports ONLY this file, not LoginPage.css.
+   SignupPage.css — Red Turtle Coffee · Staff Registration
+   Warm espresso-dark theme — matches HomePage & LoginPage
+   Self-contained: all shared form styles included here
    ============================================================ */
 
-/* ══════════════════════════════════════════════════════════════
-   PAGE WRAPPER
-   ══════════════════════════════════════════════════════════════ */
+/* ══ PAGE WRAPPER ═════════════════════════════════════════════════════════════ */
 .signup-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Extra top/bottom padding so the card doesn't clip on short screens */
   padding: var(--space-xl) var(--space-lg);
 
   background:
-    radial-gradient(ellipse 70% 60% at 80% 10%, rgba(123, 94, 167, 0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(0, 198, 255, 0.12) 0%, transparent 60%),
-    linear-gradient(135deg, var(--clr-bg-start) 0%, #0e1535 50%, var(--clr-bg-end) 100%);
+    radial-gradient(ellipse 70% 55% at 85% 10%,  rgba(192, 57, 43, 0.13) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 10% 90%,  rgba(232,160, 69, 0.10) 0%, transparent 55%),
+    linear-gradient(150deg, #0d0805 0%, #150e08 55%, #0f0a05 100%);
 
   position: relative;
   overflow: hidden;
 }
 
-/* Decorative background orbs */
+/* Decorative orbs */
 .signup-page::before,
 .signup-page::after {
   content: '';
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(90px);
   pointer-events: none;
   z-index: 0;
 }
 
 .signup-page::before {
-  width: 450px;
-  height: 450px;
-  background: rgba(123, 94, 167, 0.1);
-  top: -120px;
-  right: -80px;
-  animation: floatReverse 10s ease-in-out infinite;
+  width: 420px;
+  height: 420px;
+  background: rgba(192, 57, 43, 0.09);
+  top: -110px;
+  right: -70px;
+  animation: floatOrb 10s ease-in-out infinite;
 }
 
 .signup-page::after {
   width: 300px;
   height: 300px;
-  background: rgba(0, 198, 255, 0.07);
+  background: rgba(232, 160, 69, 0.08);
   bottom: -60px;
   left: -60px;
-  animation: floatReverse 10s ease-in-out infinite;
+  animation: floatOrb 10s ease-in-out infinite;
   animation-delay: -5s;
 }
 
-@keyframes floatReverse {
-  0%, 100% { transform: translateY(0)    rotate(0deg); }
-  50%       { transform: translateY(20px) rotate(5deg); }
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0)    scale(1);    }
+  50%       { transform: translateY(22px) scale(1.05); }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   CARD
-   ══════════════════════════════════════════════════════════════ */
+/* ══ CARD ═════════════════════════════════════════════════════════════════════ */
 .signup-card {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: 480px;
 
-  background: var(--clr-glass-bg);
-  border: 1px solid var(--clr-glass-border);
+  background: rgba(255, 210, 140, 0.045);
+  border: 1px solid rgba(255, 200, 120, 0.11);
   border-radius: var(--radius-xl);
   padding: var(--space-xl);
 
-  /* Glassmorphism */
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 
   box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 1px 0 rgba(255, 255, 255, 0.10) inset;
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 200, 100, 0.04) inset,
+    0 1px 0 rgba(255, 200, 100, 0.09) inset;
 
   animation: cardEnterUp 0.65s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 @keyframes cardEnterUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(36px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   BRAND / LOGO AREA
-   ══════════════════════════════════════════════════════════════ */
+/* ══ BRAND ════════════════════════════════════════════════════════════════════ */
 .signup-brand {
   text-align: center;
   margin-bottom: var(--space-lg);
@@ -108,135 +94,111 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 58px;
+  height: 58px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--clr-accent-2), #9b6fd4);
+  background: linear-gradient(135deg, #e8a045, #c07820);
   margin-bottom: var(--space-sm);
-  box-shadow: 0 8px 32px rgba(123, 94, 167, 0.4);
-  font-size: 24px;
+  box-shadow: 0 8px 30px rgba(232, 160, 69, 0.38);
+  font-size: 26px;
 }
 
 .signup-brand h1 {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1.7rem;
+  font-weight: 800;
   color: var(--clr-text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 5px;
+  letter-spacing: -0.02em;
 }
 
 .signup-brand p {
-  font-size: 0.85rem;
-  color: var(--clr-text-secondary);
+  font-size: 0.83rem;
+  color: #e8a045;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   SHARED FORM STYLES
-   (copied here from LoginPage.css because each page imports
-   only its own CSS file — there is no shared stylesheet for forms)
-   ══════════════════════════════════════════════════════════════ */
+/* ══ SHARED FORM STYLES ═══════════════════════════════════════════════════════
+   Copied here because SignupPage.jsx imports ONLY this file.
+   Any change must be mirrored in LoginPage.css too.
+   ══════════════════════════════════════════════════════════════════════════ */
 
-/* ---- Form group: wraps one label + input pair ---- */
 .form-group {
-  margin-bottom: 14px; /* slightly tighter than login for 4-field form */
+  margin-bottom: 14px;
 }
 
 .form-group label {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--clr-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-xs);
 }
 
-/* ---- Input wrapper: positions icon & toggle inside the field ---- */
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/*
- * Icon sits inside the input on the left.
- * pointer-events: none so clicking the icon focuses the input.
- */
 .input-icon {
   position: absolute;
   left: 14px;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--clr-text-muted);
   pointer-events: none;
   z-index: 1;
   transition: color var(--transition-fast);
 }
 
-/* When anything inside the wrapper gains focus, highlight the icon */
 .input-wrapper:focus-within .input-icon {
-  color: var(--clr-accent);
+  color: #e8a045;
 }
 
-/* ---- Base input style ---- */
 .form-input {
   width: 100%;
-  /*
-   * Padding:
-   *   left  42px — space for the left icon
-   *   right 44px — space for the show/hide toggle button
-   */
   padding: 13px 44px 13px 42px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 200, 100, 0.04);
+  border: 1px solid rgba(255, 200, 100, 0.10);
   border-radius: var(--radius-sm);
   color: var(--clr-text-primary);
   font-size: 0.925rem;
-  transition:
-    border-color var(--transition-fast),
-    background   var(--transition-fast),
-    box-shadow   var(--transition-fast);
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-/*
- * FIX: -webkit-text-fill-color must only target browser autofill,
- * NOT every state. Scoped to :-webkit-autofill to avoid
- * overriding normal text color throughout the page.
- */
+/* Autofill override — scoped to autofill state only, NOT normal inputs */
 .form-input:-webkit-autofill,
 .form-input:-webkit-autofill:hover,
 .form-input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--clr-text-primary);
-  -webkit-box-shadow: 0 0 0px 1000px rgba(14, 21, 53, 0.95) inset;
+  -webkit-box-shadow: 0 0 0px 1000px #150e08 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.form-input::placeholder {
-  color: var(--clr-text-muted);
-}
+.form-input::placeholder { color: var(--clr-text-muted); }
 
-/* Inputs that have no toggle button — remove right padding */
-.form-input.no-toggle {
-  padding-right: 14px;
-}
+.form-input.no-toggle { padding-right: 14px; }
 
-/* Focus state */
 .form-input:focus {
   outline: none;
-  border-color: var(--clr-accent);
-  background: rgba(0, 198, 255, 0.05);
-  box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.12);
+  border-color: #e8a045;
+  background: rgba(232, 160, 69, 0.06);
+  box-shadow: 0 0 0 3px rgba(232, 160, 69, 0.14);
 }
 
-/* ---- Error state ---- */
 .form-input.input-error {
   border-color: var(--clr-error);
-  background: rgba(255, 91, 127, 0.05);
+  background: rgba(224, 80, 80, 0.05);
 }
 
 .form-input.input-error:focus {
-  box-shadow: 0 0 0 3px rgba(255, 91, 127, 0.15);
+  box-shadow: 0 0 0 3px rgba(224, 80, 80, 0.14);
 }
 
-/* ---- Inline error message below an input ---- */
 .error-msg {
   display: block;
   font-size: 0.78rem;
@@ -252,104 +214,84 @@
   75%       { transform: translateX(4px);  }
 }
 
-/* ---- Show / Hide password toggle ---- */
 .toggle-password {
   position: absolute;
   right: 12px;
+  z-index: 2;
   background: none;
   border: none;
   color: var(--clr-text-muted);
   cursor: pointer;
   padding: 4px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: color var(--transition-fast);
-  z-index: 2;
 }
 
-.toggle-password:hover {
-  color: var(--clr-accent);
-}
+.toggle-password:hover { color: #e8a045; }
 
-/* ── Primary button ── */
+/* Primary button — red gradient (signup variant) */
 .btn-primary {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, var(--clr-accent), #0099cc);
+  background: linear-gradient(135deg, #c0392b, #8B1A10);
   border: none;
   border-radius: var(--radius-sm);
-  color: #030d1a;
+  color: #fde8e0;
   font-size: 0.95rem;
   font-weight: 700;
   font-family: var(--font-heading);
   letter-spacing: 0.03em;
   cursor: pointer;
   margin-top: var(--space-sm);
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform  var(--transition-fast),
-    box-shadow var(--transition-fast),
-    filter     var(--transition-fast);
-  box-shadow: 0 4px 24px rgba(0, 198, 255, 0.35);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+  box-shadow: 0 4px 22px rgba(192, 57, 43, 0.40);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 198, 255, 0.5);
-  filter: brightness(1.1);
+  box-shadow: 0 8px 30px rgba(192, 57, 43, 0.54);
+  filter: brightness(1.10);
 }
 
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 16px rgba(0, 198, 255, 0.3);
-}
+.btn-primary:active  { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.60; cursor: not-allowed; transform: none; }
 
-.btn-primary:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* ── Secondary / outline button ── */
+/* Secondary button */
 .btn-secondary {
   width: 100%;
   padding: 13px;
   background: transparent;
-  border: 1px solid var(--clr-glass-border);
+  border: 1px solid rgba(255, 200, 120, 0.14);
   border-radius: var(--radius-sm);
   color: var(--clr-text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   margin-top: var(--space-sm);
-  transition:
-    border-color var(--transition-fast),
-    color        var(--transition-fast),
-    background   var(--transition-fast),
-    transform    var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
 }
 
 .btn-secondary:hover {
-  border-color: var(--clr-accent);
-  color: var(--clr-accent);
-  background: rgba(0, 198, 255, 0.05);
+  border-color: #e8a045;
+  color: #e8a045;
+  background: rgba(232, 160, 69, 0.06);
   transform: translateY(-1px);
 }
 
-/* ── "or" divider between buttons ── */
+/* Divider */
 .btn-divider {
   display: flex;
   align-items: center;
   gap: var(--space-md);
   margin: var(--space-md) 0;
   color: var(--clr-text-muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -358,14 +300,12 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--clr-glass-border);
+  background: rgba(255, 200, 120, 0.10);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   SIGNUP-SPECIFIC STYLES
-   ══════════════════════════════════════════════════════════════ */
+/* ══ SIGNUP-SPECIFIC STYLES ═══════════════════════════════════════════════════ */
 
-/* ---- Password strength indicator ---- */
+/* Password strength meter */
 .password-strength {
   display: flex;
   align-items: center;
@@ -383,66 +323,60 @@
   height: 3px;
   flex: 1;
   border-radius: 999px;
-  /* Default: unlit bar */
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 200, 100, 0.08);
   transition: background var(--transition-mid);
 }
 
-/* Lit bar colours per strength level */
 .strength-bar.weak   { background: var(--clr-error);   }
-.strength-bar.fair   { background: var(--clr-warning);  }
+.strength-bar.fair   { background: #e8a045;             }
 .strength-bar.strong { background: var(--clr-success);  }
 
 .strength-label {
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.68rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   min-width: 44px;
   text-align: right;
 }
 
-.strength-label.weak   { color: var(--clr-error);   }
-.strength-label.fair   { color: var(--clr-warning);  }
-.strength-label.strong { color: var(--clr-success);  }
+.strength-label.weak   { color: var(--clr-error);  }
+.strength-label.fair   { color: #e8a045;            }
+.strength-label.strong { color: var(--clr-success); }
 
-/* ---- Success banner (shown after registration) ---- */
+/* Success banner */
 .success-banner {
-  background: rgba(34, 211, 160, 0.10);
-  border: 1px solid rgba(34, 211, 160, 0.25);
+  background: rgba(76, 175, 125, 0.10);
+  border: 1px solid rgba(76, 175, 125, 0.25);
   border-radius: var(--radius-sm);
   padding: var(--space-md);
   text-align: center;
   color: var(--clr-success);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: var(--space-md);
   animation: fadeIn 0.4s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-
-/* ---- Footer note ---- */
+/* Footer note */
 .signup-footer {
   text-align: center;
   margin-top: var(--space-lg);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--clr-text-muted);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE — MOBILE
-   ══════════════════════════════════════════════════════════════ */
+/* ══ ANIMATIONS ═══════════════════════════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══ RESPONSIVE ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 520px) {
   .signup-card {
     padding: var(--space-lg) var(--space-md);
     border-radius: var(--radius-lg);
   }
-
-  .signup-brand h1 {
-    font-size: 1.4rem;
-  }
+  .signup-brand h1 { font-size: 1.4rem; }
 }

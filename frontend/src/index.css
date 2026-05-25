@@ -1,35 +1,39 @@
 /* ============================================================
-   index.css — Global Base Styles
-   Applies to the entire application.
+   index.css — Global Base Styles & Design Tokens
+   RED TURTLE COFFEE — warm espresso-dark palette
    ============================================================ */
 
-/* --- CSS Custom Properties (Design Tokens) --- */
+/* ── CSS Custom Properties ── */
 :root {
-  /* Color Palette */
-  --clr-bg-start:    #060c1a;     /* Deep navy — gradient start       */
-  --clr-bg-mid:      #0d1b3e;     /* Rich indigo — gradient middle     */
-  --clr-bg-end:      #0a1628;     /* Dark teal-navy — gradient end     */
+  /* ── Core background palette (deep espresso darks) ── */
+  --clr-bg-start:  #0d0805;
+  --clr-bg-mid:    #150e08;
+  --clr-bg-end:    #0f0a05;
 
-  --clr-accent:      #00c6ff;     /* Electric cyan                     */
-  --clr-accent-2:    #7b5ea7;     /* Soft violet                       */
-  --clr-accent-glow: rgba(0, 198, 255, 0.25);
+  /* ── Primary accent: Red Turtle Red ── */
+  --clr-accent:      #e8a045;           /* warm amber — inputs, focus rings      */
+  --clr-accent-2:    #c0392b;           /* Red Turtle red — secondary highlights  */
+  --clr-accent-glow: rgba(232,160,69,0.22);
 
-  --clr-glass-bg:    rgba(255, 255, 255, 0.06);
-  --clr-glass-border:rgba(255, 255, 255, 0.12);
+  /* ── Glass surfaces ── */
+  --clr-glass-bg:     rgba(255, 210, 140, 0.045);
+  --clr-glass-border: rgba(255, 200, 120, 0.10);
 
-  --clr-text-primary:   #f0f4ff;
-  --clr-text-secondary: #8a9bc0;
-  --clr-text-muted:     #4e607e;
+  /* ── Text ── */
+  --clr-text-primary:   #f5e6c8;        /* warm cream                */
+  --clr-text-secondary: #c4a97a;        /* dimmed cream              */
+  --clr-text-muted:     #7a5f3e;        /* very muted brown          */
 
-  --clr-success: #22d3a0;
-  --clr-error:   #ff5b7f;
-  --clr-warning: #ffbc44;
+  /* ── Semantic colours ── */
+  --clr-success: #4caf7d;
+  --clr-error:   #e05050;
+  --clr-warning: #e8a045;
 
-  /* Typography */
+  /* ── Typography ── */
   --font-heading: 'Outfit', sans-serif;
   --font-body:    'DM Sans', sans-serif;
 
-  /* Spacing scale */
+  /* ── Spacing ── */
   --space-xs:  4px;
   --space-sm:  8px;
   --space-md:  16px;
@@ -37,31 +41,22 @@
   --space-xl:  40px;
   --space-2xl: 64px;
 
-  /* Border radius */
+  /* ── Border radius ── */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
 
-  /* Transitions */
+  /* ── Transitions ── */
   --transition-fast: 0.15s ease;
   --transition-mid:  0.3s ease;
   --transition-slow: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* --- Reset & Base --- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
@@ -73,43 +68,13 @@ body {
   overflow-x: hidden;
 }
 
-/* Headings use the display font */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  line-height: 1.2;
-}
+h1,h2,h3,h4,h5,h6 { font-family: var(--font-heading); line-height: 1.2; }
+a   { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+input, button, textarea, select { font-family: inherit; font-size: inherit; }
+button { cursor: pointer; border: none; background: none; }
 
-/* Remove default link styling */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Remove default list styling */
-ul, ol {
-  list-style: none;
-}
-
-/* Images fill their containers */
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* Inputs & buttons inherit font */
-input, button, textarea, select {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-/* Remove default button styling */
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-/* Focus outline for accessibility */
 :focus-visible {
   outline: 2px solid var(--clr-accent);
   outline-offset: 3px;

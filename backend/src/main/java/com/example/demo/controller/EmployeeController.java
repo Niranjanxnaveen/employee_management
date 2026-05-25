@@ -25,17 +25,13 @@ public class EmployeeController {
 
     // Login API
     @PostMapping("/login")
-    public String loginEmployee(@RequestBody Employee employee) {
+    public Employee loginEmployee(@RequestBody Employee employee) {
 
-        boolean isValid = employeeService.loginEmployee(
+        Employee validEmployee = employeeService.loginEmployee(
                 employee.getEmail(),
                 employee.getPassword()
         );
 
-        if (isValid) {
-            return "Login Successful!";
-        } else {
-            return "Invalid Email or Password!";
-        }
+        return validEmployee;
     }
-}
+    }

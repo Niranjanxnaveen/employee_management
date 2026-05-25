@@ -1,11 +1,9 @@
 /* ============================================================
-   LoginPage.css — Login Page Styles
-   Self-contained: all shared form styles live here too.
+   LoginPage.css — Red Turtle Coffee · Staff Login
+   Warm espresso-dark theme — matches HomePage palette
    ============================================================ */
 
-/* ══════════════════════════════════════════════════════════════
-   PAGE WRAPPER
-   ══════════════════════════════════════════════════════════════ */
+/* ══ PAGE WRAPPER ═════════════════════════════════════════════════════════════ */
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -13,90 +11,78 @@
   justify-content: center;
   padding: var(--space-lg);
 
-  /* Layered gradient mesh background */
   background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 198, 255, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(123, 94, 167, 0.15) 0%, transparent 60%),
-    linear-gradient(135deg, var(--clr-bg-start) 0%, var(--clr-bg-mid) 50%, var(--clr-bg-end) 100%);
+    radial-gradient(ellipse 75% 55% at 15% 10%,  rgba(192, 57, 43, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 85%,  rgba(232,160, 69, 0.10) 0%, transparent 55%),
+    linear-gradient(150deg, #0d0805 0%, #150e08 55%, #0f0a05 100%);
 
   position: relative;
   overflow: hidden;
 }
 
-/* Decorative animated orbs */
+/* Decorative background orbs */
 .login-page::before,
 .login-page::after {
   content: '';
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  animation: float 8s ease-in-out infinite;
+  filter: blur(90px);
   pointer-events: none;
   z-index: 0;
+  animation: floatOrb 9s ease-in-out infinite;
 }
 
 .login-page::before {
-  width: 400px;
-  height: 400px;
-  background: rgba(0, 198, 255, 0.07);
+  width: 380px;
+  height: 380px;
+  background: rgba(192, 57, 43, 0.09);
   top: -100px;
-  left: -100px;
+  left: -80px;
 }
 
 .login-page::after {
-  width: 350px;
-  height: 350px;
-  background: rgba(123, 94, 167, 0.1);
+  width: 320px;
+  height: 320px;
+  background: rgba(232, 160, 69, 0.08);
   bottom: -80px;
-  right: -80px;
-  animation-delay: -4s;
+  right: -60px;
+  animation-delay: -4.5s;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50%       { transform: translateY(-30px) scale(1.05); }
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0)    scale(1);    }
+  50%       { transform: translateY(-28px) scale(1.06); }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   CARD
-   ══════════════════════════════════════════════════════════════ */
+/* ══ CARD ═════════════════════════════════════════════════════════════════════ */
 .login-card {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: 440px;
 
-  background: var(--clr-glass-bg);
-  border: 1px solid var(--clr-glass-border);
+  background: rgba(255, 210, 140, 0.045);
+  border: 1px solid rgba(255, 200, 120, 0.11);
   border-radius: var(--radius-xl);
   padding: var(--space-xl);
 
-  /* Glassmorphism */
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 
   box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 1px 0 rgba(255, 255, 255, 0.10) inset;
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 200, 100, 0.04) inset,
+    0 1px 0 rgba(255, 200, 100, 0.09) inset;
 
   animation: cardEnter 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 @keyframes cardEnter {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   BRAND / LOGO AREA
-   ══════════════════════════════════════════════════════════════ */
+/* ══ BRAND ════════════════════════════════════════════════════════════════════ */
 .login-brand {
   text-align: center;
   margin-bottom: var(--space-xl);
@@ -106,149 +92,138 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 66px;
+  height: 66px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-2));
+  background: linear-gradient(135deg, #c0392b, #8B1A10);
   margin-bottom: var(--space-md);
-  box-shadow: 0 8px 32px var(--clr-accent-glow);
-  font-size: 28px;
+  box-shadow: 0 8px 32px rgba(192, 57, 43, 0.40);
+  font-size: 30px;
 }
 
 .login-brand h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--clr-text-primary);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .login-brand p {
-  font-size: 0.875rem;
-  color: var(--clr-text-secondary);
-  font-weight: 400;
+  font-size: 0.83rem;
+  color: #e8a045;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   FORM HEADING
-   ══════════════════════════════════════════════════════════════ */
+/* ══ FORM HEADING ═════════════════════════════════════════════════════════════ */
 .login-heading {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--clr-text-primary);
   margin-bottom: var(--space-lg);
   text-align: center;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   SHARED FORM STYLES
-   Used by: LoginPage — and copied into SignupPage.css too,
-   because each page imports only its own CSS file.
-   ══════════════════════════════════════════════════════════════ */
+/* ══ WELCOME HINT (shown after arriving from Signup) ═════════════════════════ */
+.welcome-hint {
+  background: rgba(232, 160, 69, 0.09);
+  border: 1px solid rgba(232, 160, 69, 0.22);
+  border-radius: var(--radius-sm);
+  padding: 10px var(--space-md);
+  font-size: 0.875rem;
+  color: #e8a045;
+  margin-bottom: var(--space-md);
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
 
-/* ---- Form group: wraps one label + input pair ---- */
+.welcome-hint strong { font-weight: 700; }
+
+/* ══ SHARED FORM STYLES ═══════════════════════════════════════════════════════ */
+
 .form-group {
   margin-bottom: var(--space-md);
 }
 
 .form-group label {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--clr-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-xs);
 }
 
-/* ---- Input wrapper: positions icon & toggle inside the field ---- */
+/* Input wrapper — positions icon and toggle */
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/*
- * Icon sits inside the input on the left.
- * pointer-events: none so clicking the icon focuses the input.
- */
 .input-icon {
   position: absolute;
   left: 14px;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--clr-text-muted);
   pointer-events: none;
   z-index: 1;
   transition: color var(--transition-fast);
 }
 
-/* When the wrapper has focus anywhere inside, highlight the icon */
+/* Highlight icon when wrapper has focus anywhere inside */
 .input-wrapper:focus-within .input-icon {
-  color: var(--clr-accent);
+  color: #e8a045;
 }
 
-/* ---- Base input style ---- */
+/* Base input */
 .form-input {
   width: 100%;
-  /*
-   * Padding breakdown:
-   *   top/bottom : 13px
-   *   left       : 42px  — room for the left icon
-   *   right      : 44px  — room for the show/hide toggle button
-   */
   padding: 13px 44px 13px 42px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 200, 100, 0.04);
+  border: 1px solid rgba(255, 200, 100, 0.10);
   border-radius: var(--radius-sm);
   color: var(--clr-text-primary);
   font-size: 0.925rem;
-  transition:
-    border-color var(--transition-fast),
-    background  var(--transition-fast),
-    box-shadow  var(--transition-fast);
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-/*
- * FIX: -webkit-text-fill-color must only override the browser's
- * autofill yellow background, NOT every normal input state.
- * Placing it on :-webkit-autofill targets only that case.
- */
+/* Autofill override — scoped correctly to avoid breaking normal inputs */
 .form-input:-webkit-autofill,
 .form-input:-webkit-autofill:hover,
 .form-input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--clr-text-primary);
-  -webkit-box-shadow: 0 0 0px 1000px rgba(13, 27, 62, 0.95) inset;
+  -webkit-box-shadow: 0 0 0px 1000px #150e08 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.form-input::placeholder {
-  color: var(--clr-text-muted);
-}
+.form-input::placeholder { color: var(--clr-text-muted); }
 
-/* Inputs that have no toggle button on the right */
-.form-input.no-toggle {
-  padding-right: 14px;
-}
+/* Input without toggle button — no right padding needed */
+.form-input.no-toggle { padding-right: 14px; }
 
-/* Focus state */
 .form-input:focus {
   outline: none;
-  border-color: var(--clr-accent);
-  background: rgba(0, 198, 255, 0.05);
-  box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.12);
+  border-color: #e8a045;
+  background: rgba(232, 160, 69, 0.06);
+  box-shadow: 0 0 0 3px rgba(232, 160, 69, 0.14);
 }
 
-/* ---- Error state ---- */
+/* Error state */
 .form-input.input-error {
   border-color: var(--clr-error);
-  background: rgba(255, 91, 127, 0.05);
+  background: rgba(224, 80, 80, 0.05);
 }
 
 .form-input.input-error:focus {
-  box-shadow: 0 0 0 3px rgba(255, 91, 127, 0.15);
+  box-shadow: 0 0 0 3px rgba(224, 80, 80, 0.14);
 }
 
-/* ---- Inline error message below an input ---- */
+/* Error message */
 .error-msg {
   display: block;
   font-size: 0.78rem;
@@ -259,110 +234,98 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0);   }
+  0%, 100% { transform: translateX(0);    }
   25%       { transform: translateX(-4px); }
   75%       { transform: translateX(4px);  }
 }
 
-/* ---- Show / Hide password toggle ---- */
+/* Show/hide password toggle */
 .toggle-password {
   position: absolute;
   right: 12px;
+  z-index: 2;
   background: none;
   border: none;
   color: var(--clr-text-muted);
   cursor: pointer;
   padding: 4px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: color var(--transition-fast);
-  /* Ensure toggle sits above the input */
-  z-index: 2;
 }
 
-.toggle-password:hover {
-  color: var(--clr-accent);
-}
+.toggle-password:hover { color: #e8a045; }
 
-/* ── Primary button ── */
+/* Primary button — amber gradient */
 .btn-primary {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, var(--clr-accent), #0099cc);
+  background: linear-gradient(135deg, #e8a045, #c07820);
   border: none;
   border-radius: var(--radius-sm);
-  color: #030d1a;
+  color: #1a0800;
   font-size: 0.95rem;
   font-weight: 700;
   font-family: var(--font-heading);
   letter-spacing: 0.03em;
   cursor: pointer;
   margin-top: var(--space-sm);
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform    var(--transition-fast),
-    box-shadow   var(--transition-fast),
-    filter       var(--transition-fast);
-  box-shadow: 0 4px 24px rgba(0, 198, 255, 0.35);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+  box-shadow: 0 4px 22px rgba(232, 160, 69, 0.38);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 198, 255, 0.5);
-  filter: brightness(1.1);
+  box-shadow: 0 8px 30px rgba(232, 160, 69, 0.50);
+  filter: brightness(1.08);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 4px 16px rgba(0, 198, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(232, 160, 69, 0.30);
 }
 
 .btn-primary:disabled {
-  opacity: 0.65;
+  opacity: 0.60;
   cursor: not-allowed;
   transform: none;
 }
 
-/* ── Secondary / outline button ── */
+/* Secondary / outline button */
 .btn-secondary {
   width: 100%;
   padding: 13px;
   background: transparent;
-  border: 1px solid var(--clr-glass-border);
+  border: 1px solid rgba(255, 200, 120, 0.14);
   border-radius: var(--radius-sm);
   color: var(--clr-text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   margin-top: var(--space-sm);
-  transition:
-    border-color var(--transition-fast),
-    color        var(--transition-fast),
-    background   var(--transition-fast),
-    transform    var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
 }
 
 .btn-secondary:hover {
-  border-color: var(--clr-accent);
-  color: var(--clr-accent);
-  background: rgba(0, 198, 255, 0.05);
+  border-color: #e8a045;
+  color: #e8a045;
+  background: rgba(232, 160, 69, 0.06);
   transform: translateY(-1px);
 }
 
-/* ── "or" divider between buttons ── */
+/* Divider */
 .btn-divider {
   display: flex;
   align-items: center;
   gap: var(--space-md);
   margin: var(--space-md) 0;
   color: var(--clr-text-muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -371,29 +334,28 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--clr-glass-border);
+  background: rgba(255, 200, 120, 0.10);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   FOOTER NOTE
-   ══════════════════════════════════════════════════════════════ */
+/* ══ FOOTER NOTE ══════════════════════════════════════════════════════════════ */
 .login-footer {
   text-align: center;
   margin-top: var(--space-lg);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--clr-text-muted);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE — MOBILE
-   ══════════════════════════════════════════════════════════════ */
+/* ══ SHARED ANIMATIONS ════════════════════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══ RESPONSIVE ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   .login-card {
     padding: var(--space-lg) var(--space-md);
     border-radius: var(--radius-lg);
   }
-
-  .login-brand h1 {
-    font-size: 1.5rem;
-  }
+  .login-brand h1 { font-size: 1.55rem; }
 }

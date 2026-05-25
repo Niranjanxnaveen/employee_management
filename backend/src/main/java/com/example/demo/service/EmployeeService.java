@@ -20,7 +20,7 @@ public class EmployeeService {
     }
 
     // Login Employee
-    public boolean loginEmployee(String email, String password) {
+    public Employee loginEmployee(String email, String password) {
 
         Optional<Employee> employee = employeeRepository.findByEmail(email);
 
@@ -28,10 +28,11 @@ public class EmployeeService {
 
             Employee existingEmployee = employee.get();
 
-            // Check password
-            return existingEmployee.getPassword().equals(password);
+            if (existingEmployee.getPassword().equals(password)) {
+                return existingEmployee;
+            }
         }
 
-        return false;
+        return null;
     }
 }
